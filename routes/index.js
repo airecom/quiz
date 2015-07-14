@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-var quizController = require('../controllers/quiz_controller');
-var infoController = require('../controllers/info_controller');
+var quizController = require('../controller/quiz_controller');
+var infoController = require('../controller/info_controller');
 
 /* GET home page. */
 router.get('/', function(req, res) {
