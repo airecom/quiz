@@ -1,4 +1,4 @@
-﻿// MW de autorización de accesos HTTP restringidos
+// MW de autorización de accesos HTTP restringidos
 exports.loginRequired = function(req, res, next){
     if (req.session.user) {
         next();
@@ -32,7 +32,7 @@ exports.create = function(req, res) {
 
         // Crear req.session.user y guardar campos   id  y  username
         // La sesión se define por la existencia de:    req.session.user
-        req.session.user = {id:user.id, username:user.username};
+        req.session.user = {id:user.id, username:user.username,lastRequestTime: Date.now()};
 
         res.redirect(req.session.redir.toString());// redirección a path anterior a login
     });

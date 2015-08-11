@@ -1,4 +1,4 @@
-﻿var express = require('express');
+var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -41,6 +41,19 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Auto-logout
+app.use(function(req, res, next) {
+    if (req.session.user) {
+    if (Date.now() - req.session.user.lastRequestTime > 60000) {
+        req.session.errors = [{"message": 'Sesión expirada'}];
+        delete req.session.user;
+    } else {
+        req.session.user.lastRequestTime = Date.now();
+    }
+    }
+    next();
+});
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
@@ -51,7 +64,6 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
-
 
 // development error handler
 // will print stacktrace
