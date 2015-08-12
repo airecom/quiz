@@ -44,7 +44,7 @@ app.use(function(req, res, next) {
 // Auto-logout
 app.use(function(req, res, next) {
     if (req.session.user) {
-    if (Date.now() - req.session.user.lastRequestTime > 60000) {
+    if (Date.now() - req.session.user.lastRequestTime > 120000) {
         req.session.errors = [{"message": 'Sesión expirada'}];
         delete req.session.user;
     } else {
